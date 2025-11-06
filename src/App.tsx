@@ -21,6 +21,8 @@ function App() {
     GAME_HEIGHT,
   } = useGameState();
 
+  console.log('App rendered, gameState:', gameState);
+
   return (
     <div className="App">
       {gameState === 'menu' && (
