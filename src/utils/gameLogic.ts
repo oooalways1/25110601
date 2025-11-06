@@ -128,3 +128,4 @@ export const getHighScore = (): number => {
   return score ? parseInt(score, 10) : 0;
 };
 
+

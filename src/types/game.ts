@@ -51,3 +51,4 @@ export interface DifficultyConfig {
   divisionDivisors: number[]; // 나눗셈 제수
 }
 
+

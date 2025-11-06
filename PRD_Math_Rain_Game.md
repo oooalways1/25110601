@@ -395,3 +395,4 @@
 - **작성자**: AI Assistant
 - **문서 유형**: Product Requirements Document (PRD)
 
+
