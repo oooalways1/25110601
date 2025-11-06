@@ -5,7 +5,6 @@ import {
   GameState,
   MathProblem,
   GameStats,
-  WrongAnswer,
 } from '../types/game';
 import {
   generateProblem,
@@ -112,8 +111,6 @@ export const useGameState = () => {
 
     if (correctProblemIndex !== -1) {
       // 정답!
-      const problem = problems[correctProblemIndex];
-      
       setStats((prev) => {
         const newCombo = prev.combo + 1;
         const newMaxCombo = Math.max(prev.maxCombo, newCombo);

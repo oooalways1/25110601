@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameState } from './hooks/useGameState';
 import { MainMenu } from './components/MainMenu';
 import { GameScreen } from './components/GameScreen';
