@@ -1,0 +1,509 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+  background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+}
+
+/* 메인 메뉴 */
+.main-menu {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.game-title {
+  font-size: 2.5rem;
+  color: #4A90E2;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-section {
+  margin: 30px 0;
+}
+
+.menu-section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mode-button,
+.difficulty-button {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: 3px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.mode-button:hover,
+.difficulty-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.mode-button.active {
+  background: #4A90E2;
+  color: white;
+  border-color: #4A90E2;
+}
+
+.difficulty-button.easy.active {
+  background: #7ED321;
+  color: white;
+  border-color: #7ED321;
+}
+
+.difficulty-button.normal.active {
+  background: #F5A623;
+  color: white;
+  border-color: #F5A623;
+}
+
+.difficulty-button.hard.active {
+  background: #D0021B;
+  color: white;
+  border-color: #D0021B;
+}
+
+.start-button {
+  margin-top: 30px;
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+}
+
+.high-score {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  color: #F5A623;
+  font-weight: bold;
+}
+
+.instructions {
+  margin-top: 30px;
+  text-align: left;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.instructions h3 {
+  color: #4A90E2;
+  margin-bottom: 10px;
+}
+
+.instructions ul {
+  list-style-position: inside;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 게임 화면 */
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  padding: 15px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.lives {
+  display: flex;
+  gap: 5px;
+}
+
+.heart {
+  font-size: 1.5rem;
+  animation: heartbeat 1s infinite;
+}
+
+.heart-empty {
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.score {
+  color: #4A90E2;
+}
+
+.combo {
+  color: #F5A623;
+  min-width: 100px;
+  text-align: right;
+}
+
+.game-area {
+  position: relative;
+  background: linear-gradient(to bottom, 
+    rgba(135, 206, 235, 0.3) 0%, 
+    rgba(224, 246, 255, 0.5) 100%);
+  border: 5px solid white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.problem {
+  position: absolute;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: float 2s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+.combo-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #F5A623;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: comboPopup 0.5s ease-out;
+  pointer-events: none;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.input-area.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.input-area label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.answer-input {
+  padding: 12px 20px;
+  font-size: 1.3rem;
+  border: 3px solid #ddd;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+  font-weight: bold;
+  transition: border-color 0.3s ease;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: #4A90E2;
+}
+
+.submit-button {
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  background: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #357ABD;
+  transform: translateY(-2px);
+}
+
+/* 게임 오버 */
+.game-over {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.game-over-title {
+  font-size: 2.5rem;
+  color: #4A90E2;
+  margin-bottom: 20px;
+}
+
+.new-high-score {
+  font-size: 1.5rem;
+  color: #F5A623;
+  font-weight: bold;
+  margin-bottom: 20px;
+  animation: pulse 1s infinite;
+}
+
+.stats-container {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+
+.stat-item.large {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #666;
+}
+
+.stat-item.large .stat-label {
+  color: white;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-item.large .stat-value {
+  color: white;
+}
+
+.wrong-answers {
+  margin: 30px 0;
+  text-align: left;
+  background: #fff3cd;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ffc107;
+}
+
+.wrong-answers h3 {
+  color: #856404;
+  margin-bottom: 15px;
+}
+
+.wrong-answers ul {
+  list-style-position: inside;
+  color: #856404;
+  line-height: 1.8;
+}
+
+.user-wrong {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.more-items {
+  color: #666;
+  font-style: italic;
+}
+
+.restart-button,
+.menu-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 10px;
+}
+
+.restart-button {
+  background: #4A90E2;
+  color: white;
+}
+
+.restart-button:hover {
+  background: #357ABD;
+  transform: translateY(-2px);
+}
+
+.menu-button {
+  background: #7ED321;
+  color: white;
+}
+
+.menu-button:hover {
+  background: #6AB91A;
+  transform: translateY(-2px);
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes comboPopup {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 900px) {
+  .game-area {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .mode-button,
+  .difficulty-button {
+    width: 100%;
+  }
+
+  .game-area {
+    transform: scale(0.8);
+  }
+
+  .status-bar {
+    font-size: 1rem;
+  }
+
+  .problem {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+}
+
